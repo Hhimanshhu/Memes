@@ -4,7 +4,7 @@ export default function Leaderboard({ refreshTrigger }) {
   const [topMemes, setTopMemes] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/backend/leaderboard")
+    fetch(`${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/leaderboard`)
       .then((res) => res.json())
       .then((data) => setTopMemes(data))
       .catch((err) => console.error("Leaderboard error:", err));

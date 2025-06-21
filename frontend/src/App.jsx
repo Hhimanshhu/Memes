@@ -11,15 +11,16 @@ function App() {
   const [bidInputs, setBidInputs] = useState({});
 
   useEffect(() => {
+
     const loadMemes = async () => {
-      const res = await fetch("http://localhost:5000/backend/memes");
-      const memes = await res.json();
+    const res = await fetch(`${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/memes`);
+    const memes = await res.json();
 
       const memesWithBids = await Promise.all(
         memes.map(async (meme) => {
           try {
             const bidRes = await fetch(
-              `http://localhost:5000/backend/bids/highest/${meme.id}`
+              `${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/bids/highest/${meme.id}`
             );
             const bidData = await bidRes.json();
             return { ...meme, highestBid: bidData.highestBid };
@@ -56,7 +57,7 @@ function App() {
   const handleCreate = async (meme) => {
     try {
       const bidRes = await fetch(
-        `http://localhost:5000/backend/bids/highest/${meme.id}`
+        `${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/bids/highest/${meme.id}`
       );
       const bidData = await bidRes.json();
       setMemes([...memes, { ...meme, highestBid: bidData.highestBid }]);
@@ -90,7 +91,7 @@ function App() {
             setBidInputs={setBidInputs}
             onUpvote={async (id) => {
               const res = await fetch(
-                `http://localhost:5000/backend/memes/${id}/upvote`,
+                `${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/memes/${id}/upvote`,
                 {
                   method: "POST",
                 }
@@ -109,7 +110,7 @@ function App() {
                 alert("Invalid bid");
                 return;
               }
-              await fetch(`http://localhost:5000/backend/memes/${id}/bid`, {
+              await fetch(`${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/memes/${id}/bid`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ credits: amount }),

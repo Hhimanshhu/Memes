@@ -71,6 +71,8 @@ router.get("/memes", async (req, res) => {
     imageUrl: meme.image_url,
     tags: meme.tags || [], // ← ensures it's always an array
     upvotes: meme.upvotes,
+    caption: meme.caption || "No caption",
+    vibe: meme.vibe || "Unknown",
   }));
 
   res.json(formattedMemes);

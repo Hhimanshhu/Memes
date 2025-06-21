@@ -15,7 +15,7 @@ export default function MemeForm({ onCreate }) {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/backend/save-memes", {
+      const response = await fetch(`${ import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/backend/save-memes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(meme),
