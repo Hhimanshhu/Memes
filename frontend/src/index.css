@@ -1,8 +1,12 @@
 /* index.css */
 @import "tailwindcss";
 
-/* Custom Font */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
   font-family: 'Orbitron', sans-serif;
 }
 
